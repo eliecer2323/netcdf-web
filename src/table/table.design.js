@@ -1,7 +1,9 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
+import DataViewerDesign from '../data-viewer/data-viewer.design';
+import LinearChartDesign from '../linear-chart/linear-chart.design';
 
 const TableDesign = (props) => {
     const {
@@ -9,19 +11,21 @@ const TableDesign = (props) => {
         selectedVariable,
         onSelectionChange,
         onViewData,
+        onViewChart,
+        isChart,
         currentData
     } = props;
 
     let footer = (selectedVariable ?
         <div style={styles.footer}>
             <Button label="Ver Datos" icon="pi pi-search-plus" onClick={onViewData} />
-            <Button label="Ver Gráfico" icon="pi pi-chart-line" onClick={onViewData} />
+            <Button label="Ver Gráfico" icon="pi pi-chart-line" onClick={onViewChart} />
         </div> :
         null
     );
     
     return (
-        <Fragment>
+        <div style={styles.container}>
             <DataTable
                 value={variables}
                 selectionMode="single"
@@ -36,10 +40,16 @@ const TableDesign = (props) => {
                 <Column field="shape" header="Shape" />
                 <Column field="units" header="Units" />
             </DataTable>
-            <span>
-                {currentData}
-            </span>
-        </Fragment>
+            <LinearChartDesign
+                currentData={currentData}
+                selectedVariable={selectedVariable}
+                isChart={isChart}
+            />
+            <DataViewerDesign
+                currentData={currentData}
+                selectedVariable={selectedVariable}
+            />
+        </div>
         );
     }
 
@@ -48,6 +58,11 @@ const TableDesign = (props) => {
             width: '100%',
             display: 'flex',
             justifyContent: 'space-evenly'
+        },
+        container: {
+            width: '100%',
+            paddingLeft: '10%',
+            paddingRight: '10%'
         }
     }
     

@@ -4,8 +4,9 @@ import TableDesign from './table.design';
 const TableContainer = (props) => {
 
     const [variables, setVariables] = useState([]);
+    const [isChart, setIsChart] = useState(false);
     const [selectedVariable, setSelectedVariable] = useState(null);
-    const [currentData, setCurrentData] = useState([]);
+    const [currentData, setCurrentData] = useState(null);
 
     useEffect(() => {
         fetch('http://localhost:8080/data/all').then((response) => {
@@ -32,6 +33,7 @@ const TableContainer = (props) => {
     }
 
     const onViewData = () => {
+        setIsChart(false);
         fetch(`http://localhost:8080/data/variable/${selectedVariable.name}`).then((response) => {
             return response.json();
         }).then((body) => {
@@ -41,12 +43,19 @@ const TableContainer = (props) => {
         });
     }
 
+    const onViewChart = () => {
+        onViewData();
+        setIsChart(true);
+    }
+
     return (
         <TableDesign
             variables={variables}
             selectedVariable={selectedVariable}
             onSelectionChange={onSelectionChange}
             onViewData={onViewData}
+            onViewChart={onViewChart}
+            isChart={isChart}
             currentData={currentData}
         />
     );
