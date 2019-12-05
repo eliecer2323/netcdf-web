@@ -8,7 +8,7 @@ const LinearChartDesign = (props) => {
         isChart
     } = props;
 
-    if (currentData && isChart) {
+    if (currentData && !currentData[0].length && isChart) {
         const data = {
             labels: currentData.map((elem, i) => i),
             datasets: [

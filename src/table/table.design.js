@@ -4,6 +4,7 @@ import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import DataViewerDesign from '../data-viewer/data-viewer.design';
 import LinearChartDesign from '../linear-chart/linear-chart.design';
+import HeatMapDesign from '../heat-map/heat-map.design';
 
 const TableDesign = (props) => {
     const {
@@ -43,6 +44,10 @@ const TableDesign = (props) => {
             <LinearChartDesign
                 currentData={currentData}
                 selectedVariable={selectedVariable}
+                isChart={isChart}
+            />
+            <HeatMapDesign
+                currentData={currentData}
                 isChart={isChart}
             />
             <DataViewerDesign
